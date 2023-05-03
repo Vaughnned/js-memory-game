@@ -28,7 +28,8 @@
     },
   ];
 
-  const deck = [...cards, ...cards];
+  const flippedCards = [];
+  const matchedCards = [];
 
   function shuffleCards(arr) {
     return arr.sort(function () {
@@ -36,27 +37,52 @@
     });
   }
 
-  shuffleCards(deck);
-
-  function generateCardsHTML() {
+  function generateCardsHTML(deck) {
     let html = "";
     for (let i = 0; i < deck.length; i++) {
       const card = deck[i];
       html += `
         <div class="card" data-name=${card.text}>
-            <div class="card-back">
+            <div class="card__side card-back">
                 <img src="https://clockworkchilli.com/assets/demos/memory/images/back.png" alt="Card Back" /> 
             </div>
-            <div class="card-front">
+            <div class="card__side card-front">
                 <img src=${card.url} alt=${card.text} />
             </div>
         </div>
-        `; // hard code the card-back img
+        `;
     }
     return html;
   }
 
-  const htmlContainer = document.querySelector(".container");
-  const cardsHtml = generateCardsHTML();
-  htmlContainer.insertAdjacentHTML("afterbegin", cardsHtml);
+  function checkForMatch() {
+    if (flippedCards[0] === flippedCards[1]) {
+      flippedCards.prototype.push.apply(flippedCards, matchedCards);
+      console.log(flippedCards);
+    }
+  }
+
+  function flipCard(event) {
+    event.currentTarget.classList.add("flip");
+    flippedCards.push(event.currentTarget.dataset.name);
+    if (flippedCards.length === 2) {
+      checkForMatch();
+    }
+  }
+
+  function play() {
+    const deck = [...cards, ...cards];
+    shuffleCards(deck);
+
+    const htmlContainer = document.querySelector(".container");
+    const cardsHtml = generateCardsHTML(deck);
+    htmlContainer.insertAdjacentHTML("afterbegin", cardsHtml);
+
+    const cardNodes = document.querySelectorAll(".card");
+    for (let i = 0; i < cardNodes.length; i++) {
+      cardNodes[i].addEventListener("click", flipCard);
+    }
+  }
+
+  play();
 })();
