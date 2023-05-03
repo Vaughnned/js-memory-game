@@ -4,7 +4,7 @@
   const cards = [
     {
       text: "Apple",
-      url: "https://pngfre.com/wp-content/uploads/apple-png-image.jpg",
+      url: "https://freepngimg.com/save/133395-slice-apple-download-free-image/512x367",
     },
     {
       text: "Banana",
@@ -12,24 +12,21 @@
     },
     {
       text: "Orange",
-      url: "https://w7.pngwing.com/pngs/187/615/png-transparent-orange-fruit-orange-tangerine-orange-natural-foods-food-citrus-thumbnail.png",
+      url: "https://pngimg.com/d/orange_PNG780.png",
     },
     {
       text: "Peach",
-      url: "https://icon2.cleanpng.com/20180403/upq/kisspng-wine-sangria-zinfandel-kefir-peaches-and-cream-peach-fruit-5ac4109b9be946.9433240615227987476386.jpg",
+      url: "https://purepng.com/public/uploads/large/purepng.com-peachpeachfruitfullwholetwopeachessweetfoodorange-4815216318294z3v2.png",
     },
     {
       text: "Blueberries",
-      url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKVc3OJrjgS5B377E1WH6W1bbCqvwVl9QLuuXYuA6F&s",
+      url: "https://pngimg.com/d/blueberries_PNG16.png",
     },
     {
       text: "Blackberries",
       url: "https://www.transparentpng.com/thumb/blackberry-fruit/purple-blackberry-fruit-png-free-download-raspberry-black-mulberry-5SyhoM.png",
     },
   ];
-
-  const flippedCards = [];
-  const matchedCards = [];
 
   function shuffleCards(arr) {
     return arr.sort(function () {
@@ -55,9 +52,27 @@
     return html;
   }
 
+  function checkForDuplicate() {
+    if (
+      matchedCards.includes(flippedCards[0]) &&
+      matchedCards.includes(flippedCards[1])
+    ) {
+      return true;
+    }
+  }
+
+  let flippedCards = [];
+  let matchedCards = [];
+
   function checkForMatch() {
-    if (flippedCards[0] === flippedCards[1]) {
-      flippedCards.prototype.push.apply(flippedCards, matchedCards);
+    if (flippedCards[0] === flippedCards[1] && checkForDuplicate() !== true) {
+      matchedCards.push(flippedCards[0]);
+      matchedCards.push(flippedCards[1]);
+      flippedCards = [];
+      console.log(flippedCards);
+      console.log(matchedCards);
+    } else {
+      flippedCards = [];
       console.log(flippedCards);
     }
   }
@@ -65,8 +80,12 @@
   function flipCard(event) {
     event.currentTarget.classList.add("flip");
     flippedCards.push(event.currentTarget.dataset.name);
+
     if (flippedCards.length === 2) {
       checkForMatch();
+    }
+    if (matchedCards.length === 12) {
+      matchedCards = [];
     }
   }
 

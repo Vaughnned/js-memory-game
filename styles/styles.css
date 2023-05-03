@@ -26,10 +26,16 @@ img {
   height: 100%;
 }
 
-.card-back {
+/* .card-back {
   z-index: 5;
-}
-
-/* .card-front {
-  border-radius: 20px;
 } */
+
+.card-front {
+  border-radius: 25px;
+  background-color: brown;
+  background: transparent;
+  width: 200px;
+  height: 275px;
+  margin-left: 30px;
+  margin-top: 50px;
+}
