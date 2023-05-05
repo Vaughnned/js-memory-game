@@ -79,13 +79,10 @@
     flippedCards.forEach(function (card) {
       card.removeEventListener("click", flipCard);
       card.classList.add("match");
-      matchedCards.push(card);
+      // matchedCards.push(card);
     });
     flippedCards = [];
     if (matchedCards.length === 12) {
-      setTimeout(function () {
-        alert("Congrats! Play Again?"), 500;
-      });
     }
   }
 
@@ -106,7 +103,6 @@
       unflipCards();
       console.log({ flippedCards });
     }
-    flippedCards = [];
   }
 
   function unflipCards() {
@@ -129,12 +125,19 @@
       checkForMatch();
       flippedCards = [];
     }
+    checkGameOver();
+  }
+
+  function checkGameOver() {
     if (matchedCards.length === 12) {
-      matchedCards = [];
+      setTimeout(function () {
+        if (confirm("Congrats! Play Again?")) {
+          matchedCards = [];
+          shuffleCards(deck);
+          generateCardsHTML(deck, htmlContainer);
+        }
+      }, 500);
     }
-    // if (checkForMatch() !== true) {
-    //   event.currentTarget.classList.remove("flip");
-    // }
   }
 
   function play() {
